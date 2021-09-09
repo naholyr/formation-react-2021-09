@@ -1,8 +1,8 @@
-import { PureComponent } from "react";
+import { Component } from "react";
 import propTypes from "prop-types";
 
 export const withCounter = (OriginalComponent) =>
-  class ComponentWithCounter extends PureComponent {
+  class ComponentWithCounter extends Component {
     static propTypes = {
       initialValue: propTypes.number,
     };
@@ -10,6 +10,10 @@ export const withCounter = (OriginalComponent) =>
     static defaultProps = {
       initialValue: 0,
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+      return nextState.value !== this.state.value;
+    }
 
     // constructor(props) {
     //   super(props);
