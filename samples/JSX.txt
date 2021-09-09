@@ -1,0 +1,8 @@
+ReactDOM.render(<Counter start="1" />)
+React.createElement(Counter, { start: "1" })
+
+ReactDOM.render(<Counter start={ 1 } />)
+React.createElement(Counter, { start: 1 })
+
+<span style={ { color: "red" } }>
+<span style="color: red">
