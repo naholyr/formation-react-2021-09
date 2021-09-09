@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 const NbCounters = () => {
-  const count = useSelector((state) => Object.keys(state.counters).length);
+  const count = useSelector((state) => state.counters.ids.length);
   return <>{count}</>;
 };
 

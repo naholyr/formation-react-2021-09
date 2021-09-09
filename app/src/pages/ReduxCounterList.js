@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../actions";
 
 const ReduxCounterList = () => {
-  const counters = useSelector((state) => state.counters);
+  const counterIds = useSelector((state) => state.counters.ids);
   const dispatch = useDispatch();
   const addCounter = (initialValue) =>
     dispatch(actions.addCounter(initialValue));
@@ -19,8 +19,6 @@ const ReduxCounterList = () => {
   );
 
   const inputRef = useRef();
-
-  const counterIds = Object.keys(counters);
 
   return (
     <div className="CounterList">
