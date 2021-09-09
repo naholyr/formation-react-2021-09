@@ -1,7 +1,8 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useContext, useEffect, useRef, useState } from "react";
 import "./Weather.scss";
 import logo from "../logo.svg";
 import { getWeather } from "../api";
+import { TrucContext } from "../context";
 
 // Intérêt du composant vs. simple fonction: gestion du "memo" possible
 const WeatherData = memo(({ temperature, sunny, cloudy }) => {
@@ -30,6 +31,8 @@ const useOnMount = (fn) => useEffect(fn, []);
 const Error = ({ message }) => <>‼ {message}</>;
 
 const Weather = () => {
+  const truc = useContext(TrucContext);
+
   const [{ loading, data, error }, setStatus] = useState({
     loading: true,
     data: null,
@@ -117,6 +120,9 @@ const Weather = () => {
       ) : (
         <Error message={error} />
       )}
+      <br />
+      {"Contexte: "}
+      {truc}
     </div>
   );
 };

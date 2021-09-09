@@ -10,7 +10,7 @@ class LocationInfoCls extends Component {
   }
 }
 
-export default withRouter(LocationInfoCls);
+// export default withRouter(LocationInfoCls);
 
 // Function
 
@@ -19,4 +19,4 @@ const LocationInfoFun = () => {
   return <>Current URL: {location.pathname}</>;
 };
 
-//export default LocationInfoFun;
+export default LocationInfoFun;

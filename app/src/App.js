@@ -5,6 +5,7 @@ import NotFound from "./pages/NotFound";
 import CounterList from "./pages/CounterList";
 import Weather from "./pages/Weather";
 import LocationInfo from "./LocationInfo";
+import { TrucContext } from "./context";
 
 // / => Home
 // /counters => CounterList
@@ -46,16 +47,19 @@ const App = () => {
           Weather ({temperature}°C)
         </NavLink>
       </nav>
-      <main>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/counters" component={CounterList} />
-          <Route path="/weather" component={Weather} />
-          <Route path="*" component={NotFound} />
-        </Switch>
-      </main>
+      <TrucContext.Provider value="bidule">
+        <main>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/counters" component={CounterList} />
+            <Route path="/weather" component={Weather} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </main>
+      </TrucContext.Provider>
       <footer>
         <hr />© Bidule
+        <br />
         <LocationInfo />
       </footer>
     </div>

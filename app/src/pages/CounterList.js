@@ -2,7 +2,9 @@ import { useRef, useState } from "react";
 import Counter from "../Counter/Counter";
 import { v4 as uuid } from "uuid";
 
-const CounterList = () => {
+const CounterList = (props) => {
+  console.log("react-router-dom props", props);
+
   const [counters, setCounters] = useState([]);
 
   const addCounter = (initialValue) => {
