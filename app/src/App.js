@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import CounterList from "./pages/CounterList";
 import Weather from "./pages/Weather";
+import LocationInfo from "./LocationInfo";
 
 // / => Home
 // /counters => CounterList
@@ -55,6 +56,7 @@ const App = () => {
       </main>
       <footer>
         <hr />© Bidule
+        <LocationInfo />
       </footer>
     </div>
   );
