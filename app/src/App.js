@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import "./App.css";
 import Counter from "./Counter/Counter";
+import Weather from "./Weather/Weather.fn";
 import { v4 as uuid } from "uuid";
 
 const App = () => {
@@ -24,9 +25,18 @@ const App = () => {
   /* Uncontrolled input */
 
   const inputRef = useRef();
+  const [shouldShowWeather, toggleWeather] = useState(true);
 
   return (
     <div className="App">
+      <input
+        style={{ float: "right" }}
+        type="checkbox"
+        checked={shouldShowWeather}
+        onChange={(e) => toggleWeather(e.target.checked)}
+      />
+      {shouldShowWeather && <Weather />}
+      <hr style={{ clear: "both" }} />
       <input type="number" defaultValue={0} ref={inputRef} />
       <button onClick={() => (inputRef.current.value = 0)}>🌀</button>
       <button onClick={() => addCounter(Number(inputRef.current.value))}>

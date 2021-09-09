@@ -8,7 +8,7 @@ const sleep = (delay) =>
   new Promise((resolve) => setTimeout(() => resolve(), delay));
 
 export const getWeather = () =>
-  sleep(5000).then(() => {
+  sleep(1500).then(() => {
     if (Math.random() < 0.1) {
       throw new Error("API Error");
     }
