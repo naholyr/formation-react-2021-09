@@ -5,8 +5,9 @@ import NotFound from "./pages/NotFound";
 import CounterList from "./pages/CounterList";
 import Weather from "./pages/Weather";
 import LocationInfo from "./LocationInfo";
-import { TrucContext, WeatherStoreContext } from "./context";
+import { TrucContext } from "./context";
 import { useState } from "react";
+import WeatherTemperature from "./WeatherTemperature";
 
 // / => Home
 // /counters => CounterList
@@ -26,8 +27,6 @@ import { useState } from "react";
 
 const App = () => {
   const nbCounters = 0;
-  const [temperature, setTemperature] = useState();
-
   return (
     <div className="App">
       <h1>Ma super app</h1>
@@ -39,20 +38,19 @@ const App = () => {
           Counters ({nbCounters})
         </NavLink>
         <NavLink to="/weather" activeClassName="active">
-          Weather ({temperature}°C)
+          Weather (<WeatherTemperature />
+          °C)
         </NavLink>
       </nav>
       <TrucContext.Provider value="bidule">
-        <WeatherStoreContext.Provider value={setTemperature}>
-          <main>
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/counters" component={CounterList} />
-              <Route path="/weather" component={Weather} />
-              <Route path="*" component={NotFound} />
-            </Switch>
-          </main>
-        </WeatherStoreContext.Provider>
+        <main>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/counters" component={CounterList} />
+            <Route path="/weather" component={Weather} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </main>
       </TrucContext.Provider>
       <footer>
         <hr />© Bidule
