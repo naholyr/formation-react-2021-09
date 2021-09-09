@@ -11,3 +11,18 @@ export const updateTemperature = (temperature: number) => {
   };
   return action;
 };
+
+export const incrCounter = (id, step = +1) => ({
+  type: "COUNTER_INCR",
+  payload: { id, step },
+});
+
+export const addCounter = (value = 0) => ({
+  type: "COUNTER_ADD",
+  payload: { value },
+});
+
+export const removeCounter = (id) => ({
+  type: "COUNTER_REMOVE",
+  payload: { id },
+});

@@ -2,12 +2,12 @@ import "./App.scss";
 import { NavLink, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
-import CounterList from "./pages/CounterList";
+import ReduxCounterList from "./pages/ReduxCounterList";
 import Weather from "./pages/Weather";
 import LocationInfo from "./LocationInfo";
 import { TrucContext } from "./context";
-import { useState } from "react";
 import WeatherTemperature from "./WeatherTemperature";
+import NbCounters from "./NbCounters";
 
 // / => Home
 // /counters => CounterList
@@ -35,7 +35,7 @@ const App = () => {
           Home
         </NavLink>
         <NavLink to="/counters" activeClassName="active">
-          Counters ({nbCounters})
+          Counters (<NbCounters />)
         </NavLink>
         <NavLink to="/weather" activeClassName="active">
           Weather (<WeatherTemperature />
@@ -46,7 +46,7 @@ const App = () => {
         <main>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/counters" component={CounterList} />
+            <Route path="/counters" render={() => <ReduxCounterList />} />
             <Route path="/weather" component={Weather} />
             <Route path="*" component={NotFound} />
           </Switch>
