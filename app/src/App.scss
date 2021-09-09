@@ -1,0 +1,28 @@
+.App {
+  display: grid;
+  grid-template-columns: 1auto 1auto;
+  grid-template-rows: 1auto 1fr 1auto;
+  grid-template-areas: "Title Nav" "Main Main" "Footer Footer";
+
+  main {
+    grid-area: Main;
+  }
+
+  h1 {
+    grid-area: Title;
+  }
+
+  nav {
+    grid-area: Nav;
+    a {
+      margin: 1em;
+    }
+    .active {
+      font-weight: bold;
+    }
+  }
+
+  footer {
+    grid-area: Footer;
+  }
+}

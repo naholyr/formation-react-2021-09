@@ -1,92 +1,63 @@
-import { useRef, useState } from "react";
-import "./App.css";
-import Counter from "./Counter/Counter";
-import Weather from "./Weather/Weather.fn";
-import { v4 as uuid } from "uuid";
+import "./App.scss";
+import { NavLink, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import CounterList from "./pages/CounterList";
+import Weather from "./pages/Weather";
+
+// / => Home
+// /counters => CounterList
+// /weather => Weather
+
+/*
+
+    +--------------------------------------------------------------+
+    | TITRE (nb counters) (température) |           MENU (3 liens) |
+    +--------------------------------------------------------------+
+    | MAIN CONTENT                                                 |
+    +--------------------------------------------------------------+
+    | FOOTER                                                       |
+    +--------------------------------------------------------------+
+
+*/
 
 const App = () => {
-  const [counters, setCounters] = useState([]);
-
-  const addCounter = (initialValue) => {
-    const id = uuid();
-    setCounters([...counters, { id, initialValue }]);
-  };
-
-  const removeCounter = (counterId) =>
-    setCounters(counters.filter((id) => id !== counterId));
-
-  const renderLi = ({ id, initialValue }) => (
-    <li key={id}>
-      <Counter initialValue={initialValue} />
-      <button onClick={() => removeCounter(id)}>🗑</button>
-    </li>
-  );
-
-  /* Uncontrolled input */
-
-  const inputRef = useRef();
-  const [shouldShowWeather, toggleWeather] = useState(true);
+  const nbCounters = 1;
+  const temperature = 24;
 
   return (
-    <div className="App">
-      <input
-        style={{ float: "right" }}
-        type="checkbox"
-        checked={shouldShowWeather}
-        onChange={(e) => toggleWeather(e.target.checked)}
-      />
-      {shouldShowWeather && <Weather />}
-      <hr style={{ clear: "both" }} />
-      <input type="number" defaultValue={0} ref={inputRef} />
-      <button onClick={() => (inputRef.current.value = 0)}>🌀</button>
-      <button onClick={() => addCounter(Number(inputRef.current.value))}>
-        ➕
-      </button>
-      <ul className="counters">{counters.map(renderLi)}</ul>
+    <div class="App">
+      <div class="grid-container">
+        <div class="Main"></div>
+        <div class="Title"></div>
+        <div class="Nav"></div>
+        <div class="Footer"></div>
+      </div>
+      <h1>Ma super app</h1>
+      <nav>
+        <NavLink to="/" exact activeClassName="active">
+          Home
+        </NavLink>
+        <NavLink to="/counters" activeClassName="active">
+          Counters ({nbCounters})
+        </NavLink>
+        <NavLink to="/weather" activeClassName="active">
+          Weather ({temperature}°C)
+        </NavLink>
+      </nav>
+      <main>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/counters" component={CounterList} />
+          <Route path="/weather" component={Weather} />
+          <Route path="*" component={NotFound} />
+        </Switch>
+      </main>
+      <footer>
+        <hr />© Bidule
+      </footer>
     </div>
   );
-  /**/
-
-  /* Uncontrolled input * /
-
-  const [currentValue, setCurrentValue] = useState(0);
-  const handleValueChange = (event) => {
-    setCurrentValue(Number(event.target.value));
-  };
-
-  return (
-    <div className="App">
-      <input type="number" defaultValue={0} onChange={handleValueChange} />
-      <button
-        onClick={
-          // FIXME: reset by changing input's key
-          () => setCurrentValue(0)
-        }
-      >
-        🌀
-      </button>
-      <button onClick={() => addCounter(currentValue)}>➕</button>
-      <ul className="counters">{counters.map(renderLi)}</ul>
-    </div>
-  );
-  /**/
-
-  /* Controlled input * /
-
-  const [currentValue, setCurrentValue] = useState(0);
-  const handleValueChange = (event) => {
-    setCurrentValue(Number(event.target.value));
-  };
-
-  return (
-    <div className="App">
-      <input type="number" value={currentValue} onChange={handleValueChange} />
-      <button onClick={() => setCurrentValue(0)}>🌀</button>
-      <button onClick={() => addCounter(currentValue)}>➕</button>
-      <ul className="counters">{counters.map(renderLi)}</ul>
-    </div>
-  );
-  /**/
 };
 
 export default App;
