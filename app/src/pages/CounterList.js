@@ -13,7 +13,7 @@ const CounterList = (props) => {
   };
 
   const removeCounter = (counterId) =>
-    setCounters(counters.filter((id) => id !== counterId));
+    setCounters(counters.filter((c) => c.id !== counterId));
 
   const renderLi = ({ id, initialValue }) => (
     <li key={id}>
