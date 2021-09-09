@@ -5,7 +5,8 @@ import NotFound from "./pages/NotFound";
 import CounterList from "./pages/CounterList";
 import Weather from "./pages/Weather";
 import LocationInfo from "./LocationInfo";
-import { TrucContext } from "./context";
+import { TrucContext, WeatherStoreContext } from "./context";
+import { useState } from "react";
 
 // / => Home
 // /counters => CounterList
@@ -24,17 +25,11 @@ import { TrucContext } from "./context";
 */
 
 const App = () => {
-  const nbCounters = 1;
-  const temperature = 24;
+  const nbCounters = 0;
+  const [temperature, setTemperature] = useState();
 
   return (
-    <div class="App">
-      <div class="grid-container">
-        <div class="Main"></div>
-        <div class="Title"></div>
-        <div class="Nav"></div>
-        <div class="Footer"></div>
-      </div>
+    <div className="App">
       <h1>Ma super app</h1>
       <nav>
         <NavLink to="/" exact activeClassName="active">
@@ -48,14 +43,16 @@ const App = () => {
         </NavLink>
       </nav>
       <TrucContext.Provider value="bidule">
-        <main>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/counters" component={CounterList} />
-            <Route path="/weather" component={Weather} />
-            <Route path="*" component={NotFound} />
-          </Switch>
-        </main>
+        <WeatherStoreContext.Provider value={setTemperature}>
+          <main>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/counters" component={CounterList} />
+              <Route path="/weather" component={Weather} />
+              <Route path="*" component={NotFound} />
+            </Switch>
+          </main>
+        </WeatherStoreContext.Provider>
       </TrucContext.Provider>
       <footer>
         <hr />© Bidule
