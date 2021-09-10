@@ -1,12 +1,10 @@
 import { v4 as uuid } from "uuid";
+import { OrderedMap } from "immutable";
 
-type State = {
+export type AppState = {
   temperature: number,
   users: Array<{ id: number, name: string }>,
-  counters: {
-    ids: string[],
-    values: Record<string, number>,
-  },
+  counters: OrderedMap<string, number>,
 };
 
 type Action = {
@@ -16,7 +14,7 @@ type Action = {
   error?: boolean,
 };
 
-export const initialState: State = {
+export const initialState: AppState = {
   temperature: null,
   users: [
     {
@@ -24,13 +22,10 @@ export const initialState: State = {
       name: "Bob",
     },
   ],
-  counters: {
-    ids: [],
-    values: {},
-  },
+  counters: new OrderedMap(),
 };
 
-export const reducer = (state: State, action: Action): State => {
+export const reducer = (state: AppState, action: Action): State => {
   switch (action.type) {
     case "SET_TEMPERATURE":
       return { ...state, temperature: action.payload.temperature };
@@ -50,22 +45,19 @@ export const reducer = (state: State, action: Action): State => {
 
     case "COUNTER_ADD": {
       const id = uuid();
-      const ids = [...state.counters.ids, id];
-      const values = { ...state.counters.values, [id]: action.payload.value };
-      return { ...state, counters: { ids, values } };
+      const value = action.payload.value;
+      return { ...state, counters: state.counters.set(id, value) };
     }
     case "COUNTER_REMOVE": {
       const id = action.payload.id;
-      const { [id]: deleted, ...values } = state.counters.values;
-      const ids = state.counters.ids.filter((v) => v !== id);
-      return { ...state, counters: { ids, values } };
+      return { ...state, counters: state.counters.delete(id) };
     }
     case "COUNTER_INCR": {
       const { id, step } = action.payload;
-      const value = state.counters.values[id];
-      if (value === undefined) return state; // invalid id = no-op
-      const values = { ...state.counters.values, [id]: value + step };
-      return { ...state, counters: { ...state.counters, values } };
+      return {
+        ...state,
+        counters: state.counters.update(id, (v) => v + step),
+      };
     }
 
     default:

@@ -2,9 +2,10 @@ import { memo, useRef } from "react";
 import ReduxCounter from "../Counter/ReduxCounter";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../actions";
+import type { AppState } from "../reducer";
 
 const ReduxCounterList = () => {
-  const counterIds = useSelector((state) => state.counters.ids);
+  const counterIds = useSelector((state: AppState) => state.counters.keySeq());
   const dispatch = useDispatch();
   const addCounter = (initialValue) =>
     dispatch(actions.addCounter(initialValue));
