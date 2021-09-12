@@ -23,6 +23,11 @@ export const initialState: AppState = {
     },
   ],
   counters: new OrderedMap(),
+  weather: {
+    loading: false,
+    error: "",
+    data: {}, // weather info (success)
+  },
 };
 
 export const reducer = (state: AppState, action: Action): State => {
@@ -57,6 +62,26 @@ export const reducer = (state: AppState, action: Action): State => {
       return {
         ...state,
         counters: state.counters.update(id, (v) => v + step),
+      };
+    }
+
+    case "LOAD_WEATHER_START": {
+      return { ...state, weather: { ...state.weather, loading: true } };
+    }
+    case "LOAD_WEATHER_SUCCESS": {
+      return {
+        ...state,
+        weather: { ...state.weather, loading: false, data: action.payload },
+      };
+    }
+    case "LOAD_WEATHER_ERROR": {
+      return {
+        ...state,
+        weather: {
+          ...state.weather,
+          loading: false,
+          error: action.payload.error,
+        },
       };
     }
 

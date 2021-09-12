@@ -26,3 +26,16 @@ export const removeCounter = (id) => ({
   type: "COUNTER_REMOVE",
   payload: { id },
 });
+
+export const startLoadWeather = () => ({
+  type: "LOAD_WEATHER_START",
+});
+export const successLoadWeather = (payload) => ({
+  type: "LOAD_WEATHER_SUCCESS",
+  payload,
+});
+export const errorLoadWeather = (error) => ({
+  type: "LOAD_WEATHER_ERROR",
+  error: true,
+  payload: { error },
+});
