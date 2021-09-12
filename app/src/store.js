@@ -28,10 +28,10 @@ const documentTitleMiddleware = (store) => (next) => (action) => {
 const middlewares = [userSessionMiddleware, logAction, documentTitleMiddleware];
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  reducer,
-  initialState,
-  composeEnhancers(applyMiddleware(...middlewares))
-);
 
-export default store;
+export const initStore = (preloadedState = initialState) =>
+  createStore(
+    reducer,
+    preloadedState,
+    composeEnhancers(applyMiddleware(...middlewares))
+  );
