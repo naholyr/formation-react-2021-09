@@ -39,3 +39,16 @@ export const errorLoadWeather = (error) => ({
   error: true,
   payload: { error },
 });
+// async action creator using redux-thunk
+// alternatives: redux-saga / redux-promise / redux-axios-middleware
+export const loadWeather = (dispatch) => {
+  dispatch(startLoadWeather());
+  return getWeather()
+    .then((data) => {
+      dispatch(successLoadWeather(data));
+    })
+    .catch((err) => {
+      dispatch(errorLoadWeather(err));
+    });
+};
+

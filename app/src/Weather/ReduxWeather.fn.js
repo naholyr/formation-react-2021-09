@@ -4,9 +4,7 @@ import logo from "../logo.svg";
 import { getWeather } from "../api";
 import { TrucContext } from "../context";
 import {
-  errorLoadWeather,
-  startLoadWeather,
-  successLoadWeather,
+  loadWeather,
   updateTemperature,
 } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,22 +41,9 @@ const Weather = () => {
   const error = useSelector((state) => state.weather.error);
   const dispatch = useDispatch();
 
-  // TODO: redux-thunk / redux-saga / redux-promise / redux-axios-middleware
-  const loadWeather = () => {
-    dispatch(startLoadWeather());
-    return getWeather()
-      .then((data) => {
-        dispatch({ documentTitle: "coucou" });
-        dispatch(successLoadWeather(data));
-      })
-      .catch((err) => {
-        dispatch(errorLoadWeather(err));
-      });
-  };
-
   // seulement la première fois
   useOnMount(() => {
-    loadWeather();
+    dispatch(loadWeather());
   });
 
   return (
